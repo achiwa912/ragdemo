@@ -11,6 +11,8 @@ It demonstrates:
 - Querying via a lightweight Python API
 - Local LLM generation using Ollama
 
+For more information, see my blog entry at: https://blog.achiwa.co.uk/posts/ragpoc/
+
 * Architecture
 #+BEGIN_SRC text
 [Org README] → [Chunker] → [Embedding Model] → [Chroma DB]
@@ -29,23 +31,23 @@ It demonstrates:
 - Minimal generation wrapper for local models
 
 * Quick Start
-1. Setup Python 3.10+
-2. Git clone this project
+- Setup Python 3.10+
+- Git clone this project
 #+begin_src 
 git clone https://github.com/achiwa912/ragdemo.git
 #+end_src
-3. Activate venv
+- Activate venv
 #+begin_src 
 cd gagdemo
 python -m venv ve
 source ve/bin/activate
 #+end_src
-4. Install ChromaDB
+- Install ChromaDB
 #+begin_src 
 pip install chromadb
 #+end_src
 
-5. Install Ollama, and pull embedding and LLM models
+- Install Ollama, and pull embedding and LLM models
 #+begin_src 
 curl -fsSL https://ollama.com/install.sh | sh
 ollama pull all-minilm
@@ -53,18 +55,18 @@ ollama pull llama3.2:3b
 ollama list # to verify
 #+end_src
 
-6. Run the script
+- Run the script
 #+begin_src 
 python ragdemo.py
 #+end_src
 
 After several minutes, you'll see the answer from Ollama:
 #+begin_quote
-
+The Shifting Learning Window method works by introducing a combination of high-frequency repetitions of small number of words and low-frequency repetitions of medium number of words. It uses a “learning window” that can have 10 words, initially filled with the first 10 words from a word book. As you repeat 10 words in the learning window, you memorize one or two words, and then the learning window replaces the memorized words with new ones. This process continues until the learning window reaches the end of the book, at which point it repeats the cycle.
 #+end_quote
 It took 4 minutes on an N150-based mini PC with 16GB memory.
 
-7. Config
+- Config
 You can change the sample document file and question in ragdemo.py
 #+begin_src 
 with open("vbs_readme.org") as f:  # sample document file
