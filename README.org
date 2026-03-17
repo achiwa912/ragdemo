@@ -1,0 +1,84 @@
+#+TITLE: RAG workflow PoC - Python, ChromaDB, Ollama 
+#+AUTHOR: Kyosuke Achiwa
+#+OPTIONS: toc:t num:nil
+
+* Overview
+This repository contains a minimal, end-to-end Retrieval-Augmented Generation (RAG) proof of concept.
+
+It demonstrates:
+- Chunking and embedding an Org-mode document
+- Storing vectors in Chroma
+- Querying via a lightweight Python API
+- Local LLM generation using Ollama
+
+* Architecture
+#+BEGIN_SRC text
+[Org README] → [Chunker] → [Embedding Model] → [Chroma DB]
+                                   ↑
+                                   │
+                               [Query API]
+                                   │
+                                   ↓
+                              [LLM Generator]
+#+END_SRC
+
+* Features
+- Word-based chunking with overlap
+- Embedding via Ollama (MiniLM or nomic-embed-text)
+- Simple retrieval pipeline (top-k similarity)
+- Minimal generation wrapper for local models
+
+* Quick Start
+1. Setup Python 3.10+
+2. Git clone this project
+#+begin_src 
+git clone https://github.com/achiwa912/ragdemo.git
+#+end_src
+3. Activate venv
+#+begin_src 
+cd gagdemo
+python -m venv ve
+source ve/bin/activate
+#+end_src
+4. Install ChromaDB
+#+begin_src 
+pip install chromadb
+#+end_src
+
+5. Install Ollama, and pull embedding and LLM models
+#+begin_src 
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull all-minilm
+ollama pull llama3.2:3b
+ollama list # to verify
+#+end_src
+
+6. Run the script
+#+begin_src 
+python ragdemo.py
+#+end_src
+
+After several minutes, you'll see the answer from Ollama:
+#+begin_quote
+
+#+end_quote
+It took 4 minutes on an N150-based mini PC with 16GB memory.
+
+7. Config
+You can change the sample document file and question in ragdemo.py
+#+begin_src 
+with open("vbs_readme.org") as f:  # sample document file
+
+        metadatas=[{"source": "vbs_readme.org",
+#+end_src
+
+#+begin_src 
+results = rag("How does the shifting leaning window work?")  # sample question
+#+end_src
+
+* Notes
+- This PoC is intentionally small and easy to extend.
+- Ideal for experimenting with chunking strategies, embeddings, and prompt patterns.
+
+* License
+MIT
